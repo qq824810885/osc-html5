@@ -41,7 +41,15 @@
 			#addMessage .osc-icon-plus-filled{
 				font-size: 45px;
 				color: #008200;
-				margin-left: -12px;
+				width: 45px;
+				height: 45px;
+			}
+			
+			#addMessage .osc-icon-plus-filled{
+				-webkit-transition:-webkit-transform 0.4s;
+			}
+			#addMessage .osc-icon-plus-filled-hover{
+				-webkit-transform:rotate(135deg);
 			}
 		</style>
 	</head>
@@ -65,10 +73,9 @@
 				<span class="mui-icon mui-icon-star" style="font-size: 28px;"></span>
 				<span class="mui-tab-label" style="font-size: 14px;">博客</span>
 			</a>
-			<a id="addMessage" class="mui-tab-item">
+			<span id="addMessage" class="mui-tab-item">
 				<span class="mui-icon mui-icon-plus-filled osc-icon-plus-filled"></span>
-				<span class="mui-tab-label" style="font-size: 14px;">&nbsp;</span>
-			</a>
+			</span>
 			<a class="mui-tab-item" href="pages/osc-speaks.html">
 				<span class="mui-icon mui-icon-chatboxes" style="font-size: 28px;"></span>
 				<span class="mui-tab-label" style="font-size: 14px;">动弹</span>
@@ -107,8 +114,8 @@
 				
 				var addView = plus.webview.create("pages/osc-add.html","pages/osc-add.html",
 				{
-					bottom:"0px",
-					height:"220px"
+					bottom:"61px",
+					height:"170px"
 				});
 				addView.hide();
 			});
@@ -154,16 +161,23 @@
 				activeTab = targetTab;
 			});
 			document.getElementById("addMessage").addEventListener("tap",function(e){
-				mainView.setStyle({
-					mask:"rgba(0,0,0,0.7)"
-				});
-				mui.back = function(){
-					mainView.setStyle({
-						mask:"rgba(0,0,0,0)"
+//				mainView.setStyle({
+//					mask:"rgba(0,0,0,0.7)"
+//				});
+				var el = document.getElementById("addMessage").querySelector(".osc-icon-plus-filled").classList;
+				if(el.contains("osc-icon-plus-filled-hover")){
+					el.remove("osc-icon-plus-filled-hover");
+					plus.webview.getWebviewById("pages/osc-add.html").hide("fade-out",400);
+					plus.webview.getWebviewById(activeTab).setStyle({
+						mask:"none"
 					});
-					plus.webview.getWebviewById("pages/osc-add.html").hide();
+				}else{
+					plus.webview.getWebviewById("pages/osc-add.html").show("fade-in",400);
+					el.add("osc-icon-plus-filled-hover");
+					plus.webview.getWebviewById(activeTab).setStyle({
+						mask:"rgba(0,0,0,0.7)"
+					});
 				}
-				plus.webview.getWebviewById("pages/osc-add.html").show();
 			});
 		</script>
 	</body>

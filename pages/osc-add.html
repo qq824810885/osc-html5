@@ -18,12 +18,10 @@
 			  padding-right: 0;
 			  background-color: #FFFFFF;
 			  border-top: 1px solid #EEEEEE;
-			  border: none;
 			  border-bottom: 0px;
 			  padding-left: 15px;
 			}
 			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
-			  padding: 8px 8px;
 			  margin: -1px 0 0 -1px;
 			  vertical-align: top;
 			  border-top: 1px solid #FFFFFF;
@@ -33,7 +31,7 @@
 			  background-color: #FFFFFF;
 			}
 			.mui-grid-view.mui-grid-9 .mui-table-view-cell > a:not(.mui-btn) {
-			  padding: 10px;
+			  padding: 3px;
 			}
 			.mui-grid-view.mui-grid-9 .mui-media {
 			  color: #797979;
@@ -46,7 +44,6 @@
 			  display: block;
 			  width: 100%;
 			  height: 15px;
-			  margin-top: 8px;
 			  font-size: 14px;
 			  line-height: 15px;
 			  color: #666666;
@@ -56,8 +53,8 @@
 	</head>
 
 	<body>
-		<div class="mui-content" style="background-color: white;border: none;">
-			<ul class="mui-table-view mui-grid-view mui-grid-9" style="border: none;">
+		<div class="mui-content" style="background-color: white;">
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
 				<li class="mui-table-view-cell mui-media mui-col-xs-4">
 					<a href="#">
 						<span class="mui-icon mui-icon-home"></span>
@@ -95,13 +92,14 @@
 					</a>
 				</li>
 			</ul>
-			<div style="text-align: center;">
-				<span class="mui-icon mui-icon-plus" style="font-size: 46px;color: #008200;"></span>
-			</div>
 		</div>
 		
 		<script type="text/javascript">
-			
+			mui.plusReady(function(){
+				mui.back = function(){
+					plus.webview.currentWebview().hide();
+				}
+			});
 		</script>
 	</body>
 
