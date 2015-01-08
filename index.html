@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			.mui-bar-osc{
+				height: 65px;
+			}
+			.mui-bar-nav-osc{
+				background-color: #008200;
+				height: 50px;
+			}
+			.mui-title-osc{
+				text-align: left;
+				font-size: 20px;
+				color: white;
+				line-height: 50px;
+			}
+			.mui-pull-osc{
+				color: white;
+				line-height: 30px;
+			}
+			.mui-bar-tab a{
+				color: #8F8F94;
+			}
+			.mui-bar-tab .mui-active .mui-icon{
+				color: #008200;
+			}
+			.mui-bar-tab .mui-active .mui-tab-label{
+				color: #008200;
+			}
+			#addMessage .osc-icon-plus-filled{
+				font-size: 45px;
+				color: #008200;
+				margin-left: -12px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav mui-bar-nav-osc">
+			<a class="mui-icon mui-pull-osc mui-icon-bars mui-pull-left"></a>
+			<a class="mui-icon mui-icon-search mui-pull-right mui-pull-osc" style="font-size: 30px;font-weight: bold;"></a>
+			<h1 id="title" class="mui-title mui-title-osc">开源中国</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab mui-bar-osc">
+			<!--
+            	作者：
+            	时间：2015-01-07
+            	TODO 图标需要更换一下。
+            -->
+			<a id="defaultTab" class="mui-tab-item mui-active" href="pages/osc-news.html">
+				<span class="mui-icon mui-icon-home-filled" style="font-size: 28px;"></span>
+				<span class="mui-tab-label" style="font-size: 14px;">资讯</span>
+			</a>
+			<a class="mui-tab-item" href="pages/osc-blogs.html">
+				<span class="mui-icon mui-icon-star" style="font-size: 28px;"></span>
+				<span class="mui-tab-label" style="font-size: 14px;">博客</span>
+			</a>
+			<a id="addMessage" class="mui-tab-item">
+				<span class="mui-icon mui-icon-plus-filled osc-icon-plus-filled"></span>
+				<span class="mui-tab-label" style="font-size: 14px;">&nbsp;</span>
+			</a>
+			<a class="mui-tab-item" href="pages/osc-speaks.html">
+				<span class="mui-icon mui-icon-chatboxes" style="font-size: 28px;"></span>
+				<span class="mui-tab-label" style="font-size: 14px;">动弹</span>
+			</a>
+			<a class="mui-tab-item" href="pages/osc-center.html">
+				<span class="mui-icon mui-icon-person" style="font-size: 28px;"></span>
+				<span class="mui-tab-label" style="font-size: 14px;">我</span>
+			</a>
+		</nav>
+		<script type="text/javascript" charset="utf-8">
+			var subpages = ['pages/osc-news.html','pages/osc-blogs.html','pages/osc-speaks.html','pages/osc-center.html'];
+//			var subpages = [];
+			var tabItems = document.querySelectorAll(".mui-tab-item");
+			for (var i=0;i<tabItems.length;i++) {
+				var tabItem = tabItems.item(i);
+				if(tabItem.getAttribute("href")!=='#'){
+					subpages.push(tabItem.getAttribute("href"))
+				}
+			}
+			var subpage_style = {
+				top: '50px',
+				bottom: '66px',
+			};
+			var mainView = null;
+			//创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				mainView = self;
+				for(var i=3;i>=0;i--){
+					var sub = plus.webview.create(subpages[i],subpages[i],subpage_style);
+					if(i>0){
+						sub.hide();
+					}
+					self.append(sub);
+				}
+				
+				var addView = plus.webview.create("pages/osc-add.html","pages/osc-add.html",
+				{
+					bottom:"0px",
+					height:"220px"
+				});
+				addView.hide();
+			});
+			
+			var activeElement = document.querySelector("#defaultTab");
+			/**
+			 * @param {HTMLElement} el
+			 */
+			function applyStyle(el){
+				if(el){
+					var icon = el.querySelector(".mui-icon");
+					var classList = icon.classList.item(1);
+					icon.classList.remove(classList);
+					var index = classList.lastIndexOf("-");
+					console.log(classList);
+					if(classList.substring(index)==="-filled"){
+						icon.classList.add(classList.substring(0,index))
+					}else{
+						icon.classList.add(classList+"-filled");
+					}
+					activeElement = activeElement.querySelector(".mui-icon");
+					var activeElementClass = activeElement.classList.item(1);
+					console.log("上一次:"+activeElementClass);
+					activeElement.classList.add(activeElementClass.substring(0,activeElementClass.lastIndexOf("-")));
+					activeElement.classList.remove(activeElementClass);
+					activeElement = el;
+				}
+			}
+			//当前激活选项
+			var activeTab = subpages[0];
+			//选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				if (targetTab == activeTab || !targetTab) {
+					return;
+				}
+				applyStyle(this);
+				//显示目标选项卡
+				plus.webview.show(targetTab);
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			document.getElementById("addMessage").addEventListener("tap",function(e){
+				mainView.setStyle({
+					mask:"rgba(0,0,0,0.7)"
+				});
+				mui.back = function(){
+					mainView.setStyle({
+						mask:"rgba(0,0,0,0)"
+					});
+					plus.webview.getWebviewById("pages/osc-add.html").hide();
+				}
+				plus.webview.getWebviewById("pages/osc-add.html").show();
+			});
+		</script>
+	</body>
+
+</html>
