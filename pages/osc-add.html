@@ -12,93 +12,108 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
+		
 		<style type="text/css">
-			.mui-grid-view.mui-grid-9 {
-			  padding: 1px 0 1px 0;
-			  padding-right: 0;
-			  background-color: #FFFFFF;
-			  border-top: 1px solid #EEEEEE;
-			  border-bottom: 0px;
-			  padding-left: 15px;
+			html,body {
+				background-color: #eee;
 			}
-			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
-			  margin: -1px 0 0 -1px;
-			  vertical-align: top;
-			  border-top: 1px solid #FFFFFF;
-			  border-left: 1px solid #FFFFFF;
+			.mui-bar-osc{
+				height: 65px;
 			}
-			.mui-grid-view.mui-grid-9 .mui-table-view-cell.mui-active {
-			  background-color: #FFFFFF;
+			.mui-bar-nav-osc{
+				background-color: #008200;
+				height: 50px;
 			}
-			.mui-grid-view.mui-grid-9 .mui-table-view-cell > a:not(.mui-btn) {
-			  padding: 3px;
+			.mui-title-osc{
+				text-align: left;
+				font-size: 20px;
+				color: white;
+				line-height: 50px;
 			}
-			.mui-grid-view.mui-grid-9 .mui-media {
-			  color: #797979;
+			.mui-pull-osc{
+				color: white;
+				line-height: 30px;
 			}
-			.mui-grid-view.mui-grid-9 .mui-media .mui-icon{
-			  position: relative;
-			  font-size: 28px;
+			.mui-bar-tab a{
+				color: #8F8F94;
 			}
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
-			  display: block;
-			  width: 100%;
-			  height: 15px;
-			  font-size: 14px;
-			  line-height: 15px;
-			  color: #666666;
-			  text-overflow: ellipsis;
+			.mui-bar-tab .mui-active .mui-icon{
+				color: #008200;
+			}
+			.mui-bar-tab .mui-active .mui-tab-label{
+				color: #008200;
+			}
+			.mui-bar-tab .mui-active-osc .mui-icon{
+				color: #008200;
+			}
+			.mui-bar-tab .mui-active-osc .mui-tab-label{
+				color: #008200;
+			}
+			#addMessage .osc-icon-plus-filled{
+				font-size: 45px;
+				color: #008200;
+				width: 45px;
+				height: 45px;
+			}
+			#addMessage{
+				height: 60px;
+				line-height: 1;
+				padding: 0 auto;
+				text-align: center;
+			}
+			#addMessage .osc-icon-plus-filled{
+				-webkit-transition:-webkit-transform 0.4s;
+			}
+			#addMessage .osc-icon-plus-filled-hover{
+				-webkit-transform:rotate(135deg);
 			}
 		</style>
 	</head>
 
 	<body>
-		<div class="mui-content" style="background-color: white;">
-			<ul class="mui-table-view mui-grid-view mui-grid-9">
+		<div class="mui-content" style="background-color: white;height: 100px;overflow: hidden;">
+			<ul class="mui-table-view mui-grid-view mui-grid-9" style="margin: 0px;background-color: #eee;">
 				<li class="mui-table-view-cell mui-media mui-col-xs-4">
 					<a href="#">
-						<span class="mui-icon mui-icon-home"></span>
+						<span class="mui-icon mui-icon-compose"></span>
 						<div class="mui-media-body">文字</div>
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-4">
 					<a href="#">
-						<span class="mui-icon mui-icon-email"></span>
+						<span class="mui-icon mui-icon-image"></span>
 						<div class="mui-media-body">相册</div>
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-4">
 					<a href="#">
-						<span class="mui-icon mui-icon-chatbubble"></span>
+						<span class="mui-icon mui-icon-camera"></span>
 						<div class="mui-media-body">拍照</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-4">
-					<a href="#">
-						<span class="mui-icon mui-icon-location"></span>
-						<div class="mui-media-body">语音</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-4">
-					<a href="#">
-						<span class="mui-icon mui-icon-search"></span>
-						<div class="mui-media-body">扫一扫</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-4">
-					<a href="#">
-						<span class="mui-icon mui-icon-phone"></span>
-						<div class="mui-media-body">找人</div>
 					</a>
 				</li>
 			</ul>
 		</div>
 		
+		<div id="addMessage">
+			<span style="margin-top: 13px;" class="mui-icon mui-icon-plus-filled osc-icon-plus-filled"></span>
+		</div>
 		<script type="text/javascript">
 			mui.plusReady(function(){
 				mui.back = function(){
-					plus.webview.currentWebview().hide();
+					plus.webview.currentWebview().hide("slide-out-bottom",300);
+					plus.webview.getWebviewById("HBuilder").setStyle({
+						mask:"none"
+					});
 				}
+			});
+			var el = document.getElementById("addMessage").querySelector(".osc-icon-plus-filled").classList;
+			el.add("osc-icon-plus-filled-hover");
+			
+			document.getElementById("addMessage").addEventListener("tap",function(e){
+				plus.webview.currentWebview().hide("slide-out-bottom",200);
+				plus.webview.getWebviewById("HBuilder").setStyle({
+					mask:"none"
+				});
 			});
 		</script>
 	</body>
