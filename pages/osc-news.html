@@ -80,13 +80,16 @@
 						最新资讯
 					</a>
 					<a class="mui-control-item" href="#item2mobile">
-						本周热点
+						高手问答
 					</a>
 					<a class="mui-control-item" href="#item3mobile">
-						本月热点
+						软件更新
+					</a>
+					<a class="mui-control-item" href="#item4mobile">
+						开源项目
 					</a>
 				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
 				<div class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
@@ -214,6 +217,17 @@
 						</div>
 
 					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll4" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -244,7 +258,11 @@
 					}
 				});
 				mui(".mui-table-view").on("tap","li",function(e){
-					mui.openWindow("osc-article-show.html?articleId=sd8yt78678s66s86d8asd6876");
+					if(plus.webview.getWebviewById("osc_article_show")!=null){
+						plus.webview.getWebviewById("osc_article_show").show("slide-in-right",150);
+					}else{
+						plus.webview.open("osc-article-show.html","osc_article_show",{},"slide-in-right",150);
+					}
 				});
 			})(mui);
 		</script>

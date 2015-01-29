@@ -4,6 +4,8 @@
 		swipeBack: true
 	});
 	var back = $.back;
+	/**
+	 */
 	$.back = function() {
 		var current = plus.webview.currentWebview();
 		if (current.mType === 'main') { //模板主页面
