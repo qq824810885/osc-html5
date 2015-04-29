@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "protocol": [
+    "http",
+    "https"
+  ],
+  "index": {
+    "href": "index.html",
+    "resources": [
+      "manifest.json",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "pages/osc-blogs.html",
+      "pages/osc-speaks.html",
+      "pages/osc-center.html",
+      "pages/osc-news.html",
+      "pages/osc-add.html"
+    ],
+    "priority": 0
+  },
+  "pages": {
+    "pages/osc-blogs.html": {
+      "href": "pages/osc-blogs.html",
+      "resources": [
+        "js/app.js",
+        "css/mui.css"
+      ],
+      "priority": 0
+    },
+    "pages/osc-speaks-contents.html": {
+      "href": "pages/osc-speaks-contents.html",
+      "resources": [
+        "imgs/defaults/1397642_50.jpg",
+        "js/app.js",
+        "imgs/defaults/553243_50.jpg",
+        "imgs/defaults/1023065_50.jpg",
+        "js/mui.js",
+        "css/mui.css"
+      ],
+      "priority": 1
+    },
+    "pages/osc-speaks.html": {
+      "href": "pages/osc-speaks.html",
+      "resources": [
+        "js/app.js",
+        "js/mui.js",
+        "css/mui.css"
+      ],
+      "refer": [
+        "pages/osc-speaks-contents.html"
+      ],
+      "priority": 1
+    },
+    "pages/osc-center.html": {
+      "href": "pages/osc-center.html",
+      "resources": [
+        "js/app.js",
+        "imgs/directcut.jpg"
+      ],
+      "priority": 2
+    },
+    "pages/osc-article-show.html": {
+      "href": "pages/osc-article-show.html",
+      "resources": [],
+      "priority": 3
+    },
+    "pages/osc-news.html": {
+      "href": "pages/osc-news.html",
+      "resources": [
+        "css/mui.css",
+        "js/app.js"
+      ],
+      "refer": [
+        "pages/osc-article-show.html"
+      ],
+      "priority": 3
+    },
+    "pages/osc-add.html": {
+      "href": "pages/osc-add.html",
+      "resources": [],
+      "priority": 4
+    }
+  },
+  "idle": {
+    "resources": [
+      "pages/new_file.html",
+      "documents/dongtan.png",
+      "documents/setting.png",
+      "documents/leftmenu.png",
+      "documents/add.png",
+      "documents/news.png",
+      "js/mui.tpl.js",
+      "documents/bar_menu.png",
+      "documents/article_detail.png",
+      "js/mui.tpl.min.js",
+      "documents/splash.png",
+      "osc-data/template.json",
+      "README.md"
+    ]
+  }
+}
